@@ -1,0 +1,73 @@
+## testbench synchronous fifo
+
+module Synch_FIFO_tb(
+
+    );
+    reg clk,rst,wr_en,rd_en;
+    reg [7:0]wr_data;
+    wire full,empty;
+    wire [7:0]rd_data;
+    
+    Synch_FIFO dut(clk,rst,wr_en,wr_data,full,rd_en,rd_data,empty);
+    
+    initial
+    begin
+    
+    clk=0; rst=1; wr_en=0;rd_en=0;
+    
+    #7 rst=0; wr_en=0;rd_en=0; wr_data=8'h42;
+    
+    #12 wr_en=1;rd_en=0; wr_data=8'h42;
+    #10 wr_en=1;rd_en=0; wr_data=8'h56;
+    #10 wr_en=1;rd_en=0; wr_data=8'h02;
+    #10 wr_en=1;rd_en=0; wr_data=8'h03;
+    #10 wr_en=1;rd_en=0; wr_data=8'h04;
+    #10 wr_en=1;rd_en=0; wr_data=8'h05;
+    #10 wr_en=1;rd_en=0; wr_data=8'h06;
+    #10 wr_en=1;rd_en=0; wr_data=8'h07;
+    #10 wr_en=1;rd_en=0; wr_data=8'h08;
+    #10 wr_en=1;rd_en=0; wr_data=8'h09;
+    #10 wr_en=1;rd_en=0; wr_data=8'h10;
+    #10 wr_en=1;rd_en=0; wr_data=8'h11;
+    #10 wr_en=1;rd_en=0; wr_data=8'h12;
+    #10 wr_en=1;rd_en=0; wr_data=8'h13;
+    #7 wr_en=1;rd_en=0; wr_data=8'h14;
+    #10 wr_en=1;rd_en=0; wr_data=8'h15;
+    #10 wr_en=1;rd_en=0; wr_data=8'h16;
+    #10 wr_en=1;rd_en=0; wr_data=8'h17;
+    #10 wr_en=0;rd_en=1; wr_data=8'h04;
+    #10 wr_en=0;rd_en=1; wr_data=8'h05;
+    #10 wr_en=0;rd_en=1; wr_data=8'h06;
+    #10 wr_en=0;rd_en=1; wr_data=8'h07;
+    #10 wr_en=0;rd_en=1; wr_data=8'h08;
+    #10 wr_en=0;rd_en=1; wr_data=8'h09;
+    #10 wr_en=0;rd_en=1; wr_data=8'h10;
+    #10 wr_en=0;rd_en=1; wr_data=8'h11;
+    #10 wr_en=0;rd_en=1; wr_data=8'h12;
+    #10 wr_en=0;rd_en=1; wr_data=8'h13;
+     #10 wr_en=0;rd_en=1; wr_data=8'h06;
+    #10 wr_en=0;rd_en=1; wr_data=8'h07;
+    #10 wr_en=0;rd_en=1; wr_data=8'h08;
+    #10 wr_en=0;rd_en=1; wr_data=8'h09;
+    #10 wr_en=0;rd_en=1; wr_data=8'h10;
+    #10 wr_en=0;rd_en=1; wr_data=8'h11;
+    #10 wr_en=0;rd_en=1; wr_data=8'h12;
+    #10 wr_en=0;rd_en=1; wr_data=8'h13;
+    #10 wr_en=1;rd_en=0; wr_data=8'h95;
+    #10 wr_en=1;rd_en=0; wr_data=8'h42;
+    #10 wr_en=1;rd_en=0; wr_data=8'h56;
+    #10 wr_en=1;rd_en=0; wr_data=8'h02;
+    #10 wr_en=1;rd_en=0; wr_data=8'h03;
+    #10 wr_en=1;rd_en=0; wr_data=8'h04;
+    
+    #10 $stop;
+    
+    
+    end
+    
+    always #5 clk=~clk;
+    
+    
+    
+    
+endmodule

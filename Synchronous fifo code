@@ -1,0 +1,70 @@
+module Synch_FIFO(clk,rst,wr_en,wr_data,full,rd_en,rd_data,empty
+
+    );
+  input  clk,rst;
+    
+   input  wr_en;
+   input [7:0] wr_data;
+   output full;
+   
+   input  rd_en;
+   output reg [7:0] rd_data;
+   output empty;
+   
+   wire wr_en_i;
+   
+   parameter depth=16;              //16*8 asyn fifo 
+   
+   reg [7:0] mem [0:depth-1];       //creating memory for data storage
+   
+   reg [4:0]wr_ptr;                 // 5bit wide bcoz depth is 0000 to 1111  and 1 bit extra to check full and empty  
+   reg [4:0]rd_ptr;
+               
+   
+   assign full= {~wr_ptr[4],wr_ptr[3:0]}== rd_ptr[4:0];
+   assign empty= wr_ptr[4:0]== rd_ptr[4:0];
+   
+   assign wr_en_i= wr_en&(~full);
+   
+   
+   
+   //write process
+   
+   always@(posedge clk, posedge rst)
+   begin
+        if(rst) 
+         wr_ptr <= 0;
+        else 
+            begin
+                    if(wr_en_i)
+                    begin
+                      mem[wr_ptr] <= wr_data;
+                      wr_ptr<=wr_ptr+1;
+                    end
+                    
+                    else wr_ptr<=wr_ptr;
+            end
+   end
+   
+   //read process
+   
+   always@(posedge clk, posedge rst)
+   begin
+        if(rst) 
+         rd_ptr <= 0;
+        else 
+            begin
+                    if(rd_en)
+                    begin
+                      rd_data <=mem[rd_ptr];
+                      rd_ptr<=rd_ptr+1;
+                    end
+                    
+                    else  rd_ptr<=rd_ptr;
+            end
+   end
+   
+   
+   
+    
+endmodule
